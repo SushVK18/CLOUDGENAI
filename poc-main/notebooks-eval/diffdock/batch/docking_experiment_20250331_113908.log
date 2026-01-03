@@ -1,0 +1,114 @@
+2025-03-31T11:39:08.195431+0000 - INFO - Loaded 13 ligand-protein combinations from ../../../data/raw/docking/Experiment_Docking_Overview.csv
+2025-03-31T11:39:08.196533+0000 - INFO - Processing 1/13: BCS-CT37643 with bcsin_226
+2025-03-31T11:39:58.336933+0000 - DEBUG - BCS-CT37643 with bcsin_226 took 50.14 seconds
+2025-03-31T11:39:58.356219+0000 - INFO - Processing 2/13: BCS-CV49374 with bcsin_233
+2025-03-31T11:40:00.798502+0000 - DEBUG - BCS-CV49374 with bcsin_233 took 2.44 seconds
+2025-03-31T11:40:00.802947+0000 - INFO - Processing 3/13: BCS-CN76566 with bcsin_235
+2025-03-31T11:40:03.723067+0000 - DEBUG - BCS-CN76566 with bcsin_235 took 2.92 seconds
+2025-03-31T11:40:03.728056+0000 - INFO - Processing 4/13: BCS-CY86357 with bcsin_261
+2025-03-31T11:40:11.558341+0000 - DEBUG - BCS-CY86357 with bcsin_261 took 7.83 seconds
+2025-03-31T11:40:11.568153+0000 - INFO - Processing 5/13: BCS-CZ81034 with bcsin_262
+2025-03-31T11:40:16.749690+0000 - DEBUG - BCS-CZ81034 with bcsin_262 took 5.18 seconds
+2025-03-31T11:40:16.759130+0000 - INFO - Processing 6/13: BCS-CW64002 with bcsin_300
+2025-03-31T11:40:20.599624+0000 - DEBUG - BCS-CW64002 with bcsin_300 took 3.84 seconds
+2025-03-31T11:40:20.606091+0000 - INFO - Processing 7/13: BCS-DA38023 with bcsin_312
+2025-03-31T11:40:25.316336+0000 - DEBUG - BCS-DA38023 with bcsin_312 took 4.71 seconds
+2025-03-31T11:40:25.322846+0000 - INFO - Processing 8/13: BCS-DH93179 with bcsin_349
+2025-03-31T11:40:27.907117+0000 - DEBUG - BCS-DH93179 with bcsin_349 took 2.58 seconds
+2025-03-31T11:40:27.910301+0000 - INFO - Processing 9/13: BCS-DM16159 with bcsin_401
+2025-03-31T11:40:30.867178+0000 - DEBUG - BCS-DM16159 with bcsin_401 took 2.96 seconds
+2025-03-31T11:40:30.871298+0000 - INFO - Processing 10/13: BCS-CW64991 with bcsin_404
+2025-03-31T11:40:34.508487+0000 - DEBUG - BCS-CW64991 with bcsin_404 took 3.64 seconds
+2025-03-31T11:40:34.513959+0000 - INFO - Processing 11/13: BCS-DM58319 with bcsin_434
+2025-03-31T11:40:40.519612+0000 - DEBUG - BCS-DM58319 with bcsin_434 took 6.00 seconds
+2025-03-31T11:40:40.530988+0000 - INFO - Processing 12/13: BCS-DR80164 with bcsin_437
+2025-03-31T11:40:43.818759+0000 - DEBUG - BCS-DR80164 with bcsin_437 took 3.29 seconds
+2025-03-31T11:40:43.972610+0000 - INFO - Processing 13/13: BCS-DK97290 with bcsin_442
+2025-03-31T11:40:46.786110+0000 - DEBUG - BCS-DK97290 with bcsin_442 took 2.81 seconds
+2025-03-31T11:40:46.790610+0000 - INFO - Processing complete. Successful: 13, Failed: 0
+2025-03-31T11:40:46.791292+0000 - INFO - Summary saved to ../../../data/interim/docking/Res_Diffdock_Schroe_R1/processing_summary.json
+2025-03-31T11:42:57.628143+0000 - INFO - Loaded 13 ligand-protein combinations from ../../../data/raw/docking/Experiment_Docking_Overview.csv
+2025-03-31T11:42:57.629141+0000 - INFO - Processing 1/13: BCS-CT37643 with bcsin_226
+2025-03-31T11:43:00.033343+0000 - DEBUG - BCS-CT37643 with bcsin_226 took 2.40 seconds
+2025-03-31T11:43:00.037093+0000 - INFO - Processing 2/13: BCS-CV49374 with bcsin_233
+2025-03-31T11:43:02.656524+0000 - DEBUG - BCS-CV49374 with bcsin_233 took 2.62 seconds
+2025-03-31T11:43:02.659631+0000 - INFO - Processing 3/13: BCS-CN76566 with bcsin_235
+2025-03-31T11:43:05.643938+0000 - DEBUG - BCS-CN76566 with bcsin_235 took 2.98 seconds
+2025-03-31T11:43:05.647481+0000 - INFO - Processing 4/13: BCS-CY86357 with bcsin_261
+2025-03-31T11:43:10.994158+0000 - DEBUG - BCS-CY86357 with bcsin_261 took 5.35 seconds
+2025-03-31T11:43:11.000941+0000 - INFO - Processing 5/13: BCS-CZ81034 with bcsin_262
+2025-03-31T11:43:16.135078+0000 - DEBUG - BCS-CZ81034 with bcsin_262 took 5.13 seconds
+2025-03-31T11:43:16.142216+0000 - INFO - Processing 6/13: BCS-CW64002 with bcsin_300
+2025-03-31T11:43:20.408071+0000 - DEBUG - BCS-CW64002 with bcsin_300 took 4.26 seconds
+2025-03-31T11:43:20.412733+0000 - INFO - Processing 7/13: BCS-DA38023 with bcsin_312
+2025-03-31T11:43:24.837716+0000 - DEBUG - BCS-DA38023 with bcsin_312 took 4.42 seconds
+2025-03-31T11:43:24.842440+0000 - INFO - Processing 8/13: BCS-DH93179 with bcsin_349
+2025-03-31T11:43:27.389030+0000 - DEBUG - BCS-DH93179 with bcsin_349 took 2.55 seconds
+2025-03-31T11:43:27.392006+0000 - INFO - Processing 9/13: BCS-DM16159 with bcsin_401
+2025-03-31T11:43:30.633585+0000 - DEBUG - BCS-DM16159 with bcsin_401 took 3.24 seconds
+2025-03-31T11:43:30.636617+0000 - INFO - Processing 10/13: BCS-CW64991 with bcsin_404
+2025-03-31T11:43:33.938558+0000 - DEBUG - BCS-CW64991 with bcsin_404 took 3.30 seconds
+2025-03-31T11:43:33.942439+0000 - INFO - Processing 11/13: BCS-DM58319 with bcsin_434
+2025-03-31T11:43:40.299047+0000 - DEBUG - BCS-DM58319 with bcsin_434 took 6.36 seconds
+2025-03-31T11:43:40.307640+0000 - INFO - Processing 12/13: BCS-DR80164 with bcsin_437
+2025-03-31T11:43:43.344151+0000 - DEBUG - BCS-DR80164 with bcsin_437 took 3.04 seconds
+2025-03-31T11:43:43.348645+0000 - INFO - Processing 13/13: BCS-DK97290 with bcsin_442
+2025-03-31T11:43:46.427694+0000 - DEBUG - BCS-DK97290 with bcsin_442 took 3.08 seconds
+2025-03-31T11:43:46.430669+0000 - INFO - Processing complete. Successful: 13, Failed: 0
+2025-03-31T11:43:46.431515+0000 - INFO - Summary saved to ../../../data/interim/docking/Res_Diffdock_Flare_R2/processing_summary.json
+2025-03-31T11:44:03.749641+0000 - INFO - Loaded 13 ligand-protein combinations from ../../../data/raw/docking/Experiment_Docking_Overview.csv
+2025-03-31T11:44:03.750926+0000 - INFO - Processing 1/13: BCS-CT37643 with bcsin_226
+2025-03-31T11:44:06.175240+0000 - DEBUG - BCS-CT37643 with bcsin_226 took 2.42 seconds
+2025-03-31T11:44:06.178644+0000 - INFO - Processing 2/13: BCS-CV49374 with bcsin_233
+2025-03-31T11:44:08.579911+0000 - DEBUG - BCS-CV49374 with bcsin_233 took 2.40 seconds
+2025-03-31T11:44:08.583075+0000 - INFO - Processing 3/13: BCS-CN76566 with bcsin_235
+2025-03-31T11:44:11.543879+0000 - DEBUG - BCS-CN76566 with bcsin_235 took 2.96 seconds
+2025-03-31T11:44:11.547632+0000 - INFO - Processing 4/13: BCS-CY86357 with bcsin_261
+2025-03-31T11:44:24.080187+0000 - DEBUG - BCS-CY86357 with bcsin_261 took 12.53 seconds
+2025-03-31T11:44:24.086394+0000 - INFO - Processing 5/13: BCS-CZ81034 with bcsin_262
+2025-03-31T11:44:39.207545+0000 - DEBUG - BCS-CZ81034 with bcsin_262 took 15.12 seconds
+2025-03-31T11:44:39.213801+0000 - INFO - Processing 6/13: BCS-CW64002 with bcsin_300
+2025-03-31T11:44:47.504810+0000 - DEBUG - BCS-CW64002 with bcsin_300 took 8.29 seconds
+2025-03-31T11:44:47.509824+0000 - INFO - Processing 7/13: BCS-DA38023 with bcsin_312
+2025-03-31T11:44:56.017622+0000 - DEBUG - BCS-DA38023 with bcsin_312 took 8.51 seconds
+2025-03-31T11:44:56.022829+0000 - INFO - Processing 8/13: BCS-DH93179 with bcsin_349
+2025-03-31T11:44:58.530029+0000 - DEBUG - BCS-DH93179 with bcsin_349 took 2.51 seconds
+2025-03-31T11:44:58.533019+0000 - INFO - Processing 9/13: BCS-DM16159 with bcsin_401
+2025-03-31T11:45:01.517156+0000 - DEBUG - BCS-DM16159 with bcsin_401 took 2.98 seconds
+2025-03-31T11:45:01.520450+0000 - INFO - Processing 10/13: BCS-CW64991 with bcsin_404
+2025-03-31T11:45:05.076033+0000 - DEBUG - BCS-CW64991 with bcsin_404 took 3.55 seconds
+2025-03-31T11:45:05.079940+0000 - INFO - Processing 11/13: BCS-DM58319 with bcsin_434
+2025-03-31T11:45:19.288904+0000 - DEBUG - BCS-DM58319 with bcsin_434 took 14.21 seconds
+2025-03-31T11:45:19.295803+0000 - ERROR - Ligand file not found: ../../../data/interim/docking/ligands_from_prep_Schroe_SDF/BCS-DR80164.sdf
+2025-03-31T11:45:19.298389+0000 - INFO - Processing 13/13: BCS-DK97290 with bcsin_442
+2025-03-31T11:45:22.351816+0000 - DEBUG - BCS-DK97290 with bcsin_442 took 3.05 seconds
+2025-03-31T11:45:22.354692+0000 - INFO - Processing complete. Successful: 12, Failed: 1
+2025-03-31T11:45:22.355392+0000 - INFO - Summary saved to ../../../data/interim/docking/Res_Diffdock_Schroe_R3/processing_summary.json
+2025-03-31T11:46:38.081310+0000 - INFO - Loaded 13 ligand-protein combinations from ../../../data/raw/docking/Experiment_Docking_Overview.csv
+2025-03-31T11:46:38.082459+0000 - INFO - Processing 1/13: BCS-CT37643 with bcsin_226
+2025-03-31T11:46:40.515903+0000 - DEBUG - BCS-CT37643 with bcsin_226 took 2.43 seconds
+2025-03-31T11:46:40.519360+0000 - INFO - Processing 2/13: BCS-CV49374 with bcsin_233
+2025-03-31T11:46:42.952360+0000 - DEBUG - BCS-CV49374 with bcsin_233 took 2.43 seconds
+2025-03-31T11:46:42.955644+0000 - INFO - Processing 3/13: BCS-CN76566 with bcsin_235
+2025-03-31T11:46:45.962183+0000 - DEBUG - BCS-CN76566 with bcsin_235 took 3.01 seconds
+2025-03-31T11:46:45.965791+0000 - INFO - Processing 4/13: BCS-CY86357 with bcsin_261
+2025-03-31T11:46:58.970760+0000 - DEBUG - BCS-CY86357 with bcsin_261 took 13.00 seconds
+2025-03-31T11:46:58.976801+0000 - INFO - Processing 5/13: BCS-CZ81034 with bcsin_262
+2025-03-31T11:47:12.326542+0000 - DEBUG - BCS-CZ81034 with bcsin_262 took 13.35 seconds
+2025-03-31T11:47:12.332706+0000 - INFO - Processing 6/13: BCS-CW64002 with bcsin_300
+2025-03-31T11:47:20.476774+0000 - DEBUG - BCS-CW64002 with bcsin_300 took 8.14 seconds
+2025-03-31T11:47:20.482156+0000 - INFO - Processing 7/13: BCS-DA38023 with bcsin_312
+2025-03-31T11:47:29.056697+0000 - DEBUG - BCS-DA38023 with bcsin_312 took 8.57 seconds
+2025-03-31T11:47:29.062026+0000 - INFO - Processing 8/13: BCS-DH93179 with bcsin_349
+2025-03-31T11:47:31.635788+0000 - DEBUG - BCS-DH93179 with bcsin_349 took 2.57 seconds
+2025-03-31T11:47:31.638744+0000 - INFO - Processing 9/13: BCS-DM16159 with bcsin_401
+2025-03-31T11:47:34.639534+0000 - DEBUG - BCS-DM16159 with bcsin_401 took 3.00 seconds
+2025-03-31T11:47:34.642586+0000 - INFO - Processing 10/13: BCS-CW64991 with bcsin_404
+2025-03-31T11:47:38.313668+0000 - DEBUG - BCS-CW64991 with bcsin_404 took 3.67 seconds
+2025-03-31T11:47:38.317562+0000 - INFO - Processing 11/13: BCS-DM58319 with bcsin_434
+2025-03-31T11:47:50.398334+0000 - DEBUG - BCS-DM58319 with bcsin_434 took 12.08 seconds
+2025-03-31T11:47:50.405192+0000 - ERROR - Ligand file not found: ../../../data/interim/docking/ligands_from_prep_Flare_SDF/BCS-DR80164.sdf
+2025-03-31T11:47:50.406134+0000 - INFO - Processing 13/13: BCS-DK97290 with bcsin_442
+2025-03-31T11:47:53.256328+0000 - DEBUG - BCS-DK97290 with bcsin_442 took 2.85 seconds
+2025-03-31T11:47:53.259277+0000 - INFO - Processing complete. Successful: 12, Failed: 1
+2025-03-31T11:47:53.260207+0000 - INFO - Summary saved to ../../../data/interim/docking/Res_Diffdock_Flare_R4/processing_summary.json

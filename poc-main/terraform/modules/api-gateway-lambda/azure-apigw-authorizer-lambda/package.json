@@ -1,0 +1,32 @@
+{
+    "name": "aws-lambda-authorizer",
+    "version": "0.2.0",
+    "private": true,
+    "scripts": {
+      "start": "node index.js"
+    },
+    "dependencies": {
+      "jsonwebtoken": "^9.0.2",
+      "jwks-rsa": "^3.1.0"
+    },
+    "author": {
+      "name": "gkzim"
+    }
+  }
+
+
+  {
+  "name": "aws-lambda-authorizer",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0"
+  },
+  "author": {
+    "name": "gkzim"
+  }
+}

@@ -1,0 +1,189 @@
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+from IPython.display import clear_output, display
+
+# Set the metric to use in visualization
+metric = 'norm_qsar_hsec_scores'  # Use normalized scores
+raw_metric = 'qsar_hsec_scores'    # For displaying the actual range
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
+
+# Initialize tracking lists
+med_raw_scores = [np.median(np.array(getattr(results, raw_metric)))]
+med_norm_scores = [np.median(np.array(getattr(results, metric)))]
+med_sims = [np.median(np.array(results.similarity_scores))]
+med_norm_sims = [np.median(np.array(results.norm_similarity_scores))]
+
+# Set parameters for optimization
+minpopsize = popsize/2
+n_steps = popsize  # change if needed
+
+# Normalize seed score using domain knowledge
+if hasattr(scorer, 'hsec_min') and hasattr(scorer, 'hsec_max'):
+    seed_norm = (seed_score - scorer.hsec_min) / (scorer.hsec_max - scorer.hsec_min)
+    seed_norm = max(0, min(1, seed_norm))  # Clip to 0-1 range
+else:
+    # Fallback if the scorer doesn't have min/max values
+    seed_norm = seed_score
+
+for i in range(n_steps):
+    # Ask for trial encodings
+    trial_encodings = optimizer.ask(popsize)
+    
+    # Decode to molecules
+    hiddens_array = np.expand_dims(np.array(trial_encodings), axis=1)
+    hiddens_json = {"hiddens": hiddens_array.tolist(), "mask": [[True] for _ in range(hiddens_array.shape[0])]}
+    response = requests.post(decode_url, headers={'accept': 'application/json', 'Content-Type': 'application/json'}, json=hiddens_json)
+    
+    # Process valid molecules
+    molecules = list(dict.fromkeys(response.json()['generated']))
+    valid_smiles = [m for m in molecules if Chem.MolFromSmiles(m) is not None]
+    
+    # Get encodings for valid SMILES
+    data = {"sequences": valid_smiles}
+    response = requests.post(hidden_url, headers={'accept': 'application/json', 'Content-Type': 'application/json'}, json=data)
+    hiddens_array = np.squeeze(np.array(response.json()["hiddens"]))
+    
+    # Score molecules
+    results = scorer.score(valid_smiles, reference_smiles=m1)
+    popsize = len(results.combined_scores)
+    
+    # Check population size
+    if popsize <= minpopsize:
+        print(f"Stopping at minimum population size {popsize}")
+        break
+        
+    # Update optimizer
+    optimizer.tell(np.squeeze(np.array(hiddens_array)), results.combined_scores)
+    
+    # Extract scores - use normalized scores for visualization
+    x_scores_raw = np.array(getattr(results, raw_metric))
+    x_scores = np.array(getattr(results, metric))
+    y_scores_raw = np.array(results.similarity_scores)
+    y_scores = np.array(results.norm_similarity_scores)
+    color_values = -1 * np.array(results.combined_scores)
+    
+    # Clear plots
+    ax1.clear()
+    ax2.clear()
+    clear_output(wait=True)
+    
+    # Plot 1: Molecular landscape with improved visualization
+    # Create grid for the background
+    deltas = np.linspace(0, 1, 100)
+    Xgrid, Ygrid = np.meshgrid(deltas, deltas)
+    
+    # Calculate scores across the entire grid
+    # Convert grid values back to raw scale for HSEC to calculate scores properly
+    if raw_metric == 'qsar_hsec_scores':
+        grid_values = Xgrid * (scorer.hsec_max - scorer.hsec_min) + scorer.hsec_min
+        grid_scores, _ = scorer.score_from_properties(similarity_values=Ygrid, qsar_hsec_values=grid_values)
+    elif raw_metric == 'qsar_sip_scores':
+        grid_values = Xgrid * (scorer.sip_max - scorer.sip_min) + scorer.sip_min
+        grid_scores, _ = scorer.score_from_properties(similarity_values=Ygrid, qsar_sip_values=grid_values)
+    elif raw_metric == 'logp_scores':
+        grid_values = Xgrid * (scorer.logp_max - scorer.logp_min) + scorer.logp_min
+        grid_scores, _ = scorer.score_from_properties(similarity_values=Ygrid, logp_values=grid_values)
+    elif raw_metric == 'qed_scores':
+        # QED is already 0-1
+        grid_scores, _ = scorer.score_from_properties(similarity_values=Ygrid, qed_values=Xgrid)
+    else:
+        # Generic fallback
+        grid_scores, _ = scorer.score_from_properties(similarity_values=Ygrid, qsar_hsec_values=Xgrid)
+    
+    # Plot contour background (0-1 range)
+    contour = ax1.contourf(Xgrid, Ygrid, -1*grid_scores, levels=100, cmap='viridis', vmin=0, vmax=2.0)
+    
+    # Plot reference line for seed value
+    ax1.plot([seed_norm, seed_norm], [0, 1], linestyle=':', c='k', label="Original seed's value")
+    
+    # Plot data points (already normalized)
+    scatter = ax1.scatter(x_scores, y_scores, c=color_values, edgecolor='white', linewidths=0.5, cmap='viridis')
+    
+    # Set labels and appearance
+    ax1.set_xlabel(f"Normalized {raw_metric.replace('_', ' ').title()}")
+    ax1.set_ylabel("Normalized Similarity")
+    ax1.set_title("Molecular Scoring Landscape")
+    ax1.grid(alpha=0.3, linestyle='--')
+    ax1.set_xlim(0, 1)
+    ax1.set_ylim(0, 1)
+    ax1.legend()
+    
+    # Add annotations showing ranges and reference value
+    ax1.annotate(f"{raw_metric.replace('_', ' ').title()} range: [{np.min(x_scores_raw):.1f}, {np.max(x_scores_raw):.1f}]",
+                xy=(0.05, 0.95), xycoords='axes fraction', fontsize=9)
+    ax1.annotate(f"Similarity range: [{np.min(y_scores_raw):.2f}, {np.max(y_scores_raw):.2f}]",
+                xy=(0.05, 0.90), xycoords='axes fraction', fontsize=9)
+    ax1.annotate(f"Seed value: {seed_score:.1f} (normalized: {seed_norm:.2f})",
+                xy=(0.05, 0.85), xycoords='axes fraction', fontsize=9)
+    
+    # Plot 2: Tracking with dual y-axis
+    # Update tracking lists
+    med_raw_scores.append(np.median(x_scores_raw))
+    med_norm_scores.append(np.median(x_scores))
+    med_sims.append(np.median(y_scores_raw))
+    med_norm_sims.append(np.median(y_scores))
+    
+    # Create secondary axis for property scores
+    ax2_score = ax2.twinx()
+    
+    # Plot similarity on primary axis (normalized)
+    line_sim = ax2.plot(med_norm_sims, color='blue', label='Norm Similarity')
+    ax2.set_ylabel("Normalized Similarity", color='blue')
+    ax2.tick_params(axis='y', labelcolor='blue')
+    ax2.set_ylim(0, 1)
+    
+    # Plot raw property scores on secondary axis
+    line_raw = ax2_score.plot(med_raw_scores, color='red', label=raw_metric.replace('_', ' ').title())
+    ax2_score.set_ylabel(raw_metric.replace('_', ' ').title(), color='red')
+    ax2_score.tick_params(axis='y', labelcolor='red')
+    
+    # Set reasonable y-limits based on the property
+    if raw_metric == 'qsar_hsec_scores':
+        ax2_score.set_ylim(scorer.hsec_min, scorer.hsec_max)
+    elif raw_metric == 'qsar_sip_scores':
+        ax2_score.set_ylim(scorer.sip_min, scorer.sip_max)
+    elif raw_metric == 'logp_scores':
+        ax2_score.set_ylim(scorer.logp_min, scorer.logp_max)
+    elif raw_metric == 'qed_scores':
+        ax2_score.set_ylim(0, 1)
+    else:
+        # Adjust y-limit based on data
+        y_min = min(med_raw_scores)
+        y_max = max(med_raw_scores)
+        y_range = y_max - y_min
+        ax2_score.set_ylim(y_min - 0.1*y_range, y_max + 0.1*y_range)
+    
+    # Add third axis for normalized property scores if needed
+    ax2_norm = ax2.twinx()
+    ax2_norm.spines['right'].set_position(('outward', 60))  # Offset the third axis
+    line_norm = ax2_norm.plot(med_norm_scores, color='green', linestyle='--', label=f'Norm {raw_metric.replace("_", " ").title()}')
+    ax2_norm.set_ylabel(f"Normalized {raw_metric.replace('_', ' ').title()}", color='green')
+    ax2_norm.tick_params(axis='y', labelcolor='green')
+    ax2_norm.set_ylim(0, 1)
+    
+    # Combine legends
+    lines = line_sim + line_raw + line_norm
+    labels = [l.get_label() for l in lines]
+    ax2.legend(lines, labels, loc='upper left')
+    
+    ax2.set_xlabel("Iteration")
+    ax2.set_xlim(0, n_steps)
+    ax2.grid(alpha=0.3, linestyle='--')
+    
+    # Display figure and update
+    plt.tight_layout()
+    display(fig)
+    plt.pause(0.1)  # Short pause to allow display to update
+    
+    print(f"Iteration {i+1}/{n_steps}, Population size: {popsize}")
+    print(f"Median {raw_metric}: {med_raw_scores[-1]:.2f}, Normalized: {med_norm_scores[-1]:.2f}")
+    print(f"Median similarity: {med_sims[-1]:.2f}, Normalized: {med_norm_sims[-1]:.2f}")
+    print("-" * 50)
+
+# Final results
+print("Optimization complete!")
+print(f"Final population size: {popsize}")
+print(f"Final median {raw_metric}: {med_raw_scores[-1]:.2f}")
+print(f"Final median similarity: {med_sims[-1]:.2f}")s
