@@ -1,0 +1,83 @@
+name: Terraform CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'poc-main/terraform/**'
+      - '.github/workflows/terraform-ci-cd.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'poc-main/terraform/**'
+      - '.github/workflows/terraform-ci-cd.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  terraform-validate:
+    name: Terraform validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
+
+      - name: Terraform format check
+        working-directory: poc-main/terraform
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init (dev environment)
+        working-directory: poc-main/terraform/envs/dev
+        run: terraform init -backend=false
+
+      - name: Terraform validate
+        working-directory: poc-main/terraform/envs/dev
+        run: terraform validate
+
+  terraform-apply:
+    name: Terraform apply
+    if: github.event_name == 'workflow_dispatch'
+    needs: terraform-validate
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      TF_VAR_certificate_arn: ${{ secrets.TF_VAR_certificate_arn }}
+      TF_VAR_route53_zone_id: ${{ secrets.TF_VAR_route53_zone_id }}
+      TF_VAR_client_id: ${{ secrets.TF_VAR_client_id }}
+      TF_VAR_client_secret: ${{ secrets.TF_VAR_client_secret }}
+      TF_VAR_ngc_api_key: ${{ secrets.TF_VAR_ngc_api_key }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
+
+      - name: Terraform init
+        working-directory: poc-main/terraform/envs/dev
+        run: terraform init
+
+      - name: Terraform plan
+        working-directory: poc-main/terraform/envs/dev
+        run: terraform plan -input=false -no-color -out=tfplan
+
+      - name: Terraform apply
+        working-directory: poc-main/terraform/envs/dev
+        run: terraform apply -input=false -auto-approve tfplan
