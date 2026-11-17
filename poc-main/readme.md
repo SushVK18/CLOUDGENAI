@@ -1,6 +1,6 @@
 # GenAI Models Poc
 
-This repository contains content from the CapgeminiXBayer PoC for BioNeMo. 
+This repository contains content from the GenAI PoC . 
 
 ## Structure
 
