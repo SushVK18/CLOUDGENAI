@@ -1,4 +1,4 @@
-# BioNemo Deployment Blueprint
+# GenAI Deployment Blueprint
 This repository contains the Terraform code necessary for provisioning cloud infrastructure on AWS. It supports BioNemo framework and NIMs deployment by creating a robust, scalable, and secure environment, leveraging AWS ECS with GPU-supported EC2 instance, an Application Load Balancer for efficient traffic distribution, and a VPC with both public and private subnets for security and resource optimization.
 
 
