@@ -40,3 +40,32 @@ project/
 ## Deployment 
 
 Refer to `terraform/README.md` for Terraform deployment instructions.
+
+## CI/CD workflow
+
+This repository includes a GitHub Actions pipeline for Terraform validation and deployment.
+
+### Workflow behavior
+- On every push or pull request to `main`, the workflow runs Terraform validation.
+- It checks Terraform formatting with `terraform fmt -check -recursive`.
+- It initializes and validates the dev environment under `poc-main/terraform/envs/dev`.
+- The `workflow_dispatch` trigger allows a manual deployment run from the GitHub Actions UI.
+
+### Required secrets
+Set these repository secrets in GitHub before running the manual deployment:
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_SESSION_TOKEN` (if your AWS credentials are temporary)
+- `TF_VAR_certificate_arn`
+- `TF_VAR_route53_zone_id`
+- `TF_VAR_client_id`
+- `TF_VAR_client_secret`
+- `TF_VAR_ngc_api_key`
+
+### How to trigger deployment
+1. Open the repository in GitHub.
+2. Go to `Actions`.
+3. Select the `Terraform CI/CD` workflow.
+4. Click `Run workflow` and choose the branch to deploy.
+
+This pipeline is designed to validate infrastructure changes automatically and apply the Terraform configuration only when you trigger a deployment manually.
