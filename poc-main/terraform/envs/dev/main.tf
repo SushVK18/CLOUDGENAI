@@ -30,6 +30,13 @@ module "s3-bucket" {
   bucket_name = "bionemo-tf-s3"
 }
 
+module "bedrock_rag" {
+  source = "../../modules/bedrock-rag"
+
+  name_prefix = "bionemo-tf-rag"
+  tags        = local.common_tags
+}
+
 module "secrets_manager" {
   source = "../../modules/secrets-manager"
 
@@ -91,6 +98,10 @@ module "ecs_ec2_deploy" {
   ecs_asg_arn = module.ec2_asg.asg_arn
   capacity_provider_name = "bionemo-capacity-provider"
   ecs_task_execution_role_arn = module.ecs_iam_roles.task_execution_role_arn
+  task_role_arn = module.bedrock_rag.application_role_arn
+  bedrock_knowledge_base_id = module.bedrock_rag.knowledge_base_id
+  bedrock_generation_model_id = module.bedrock_rag.generation_model_id
+  bedrock_region = var.aws_region
   ngc_api_key = var.ngc_api_key
   service_subnets = module.vpc.private_subnets
   service_security_group = module.load-balancer.service_app_sg_id

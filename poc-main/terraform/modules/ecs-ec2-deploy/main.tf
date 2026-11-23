@@ -119,6 +119,7 @@ resource "aws_ecs_task_definition" "task" {
   network_mode             = "awsvpc"
   requires_compatibilities = ["EC2"]
   execution_role_arn       = each.value.execution_role_arn
+  task_role_arn            = var.task_role_arn
   cpu                      = tostring(each.value.cpu)
   memory                   = tostring(each.value.memory)
 
@@ -142,7 +143,23 @@ resource "aws_ecs_task_definition" "task" {
             appProtocol   = "http"
           }
         ],
-        environment          = each.value.environment,
+        environment = concat(
+          each.value.environment,
+          var.bedrock_knowledge_base_id == null ? [] : [
+            {
+              name  = "BEDROCK_KNOWLEDGE_BASE_ID"
+              value = var.bedrock_knowledge_base_id
+            },
+            {
+              name  = "BEDROCK_GENERATION_MODEL_ID"
+              value = var.bedrock_generation_model_id
+            },
+            {
+              name  = "BEDROCK_REGION"
+              value = var.bedrock_region
+            }
+          ]
+        ),
         resourceRequirements = each.value.resource_requirements
         logConfiguration     = {
           logDriver = "awslogs"

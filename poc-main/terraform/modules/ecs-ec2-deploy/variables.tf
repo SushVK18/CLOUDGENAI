@@ -30,6 +30,30 @@ variable "ecs_task_execution_role_arn" {
   type        = string
 }
 
+variable "task_role_arn" {
+  description = "The IAM role ARN used by containers to call AWS services."
+  type        = string
+  default     = null
+}
+
+variable "bedrock_knowledge_base_id" {
+  description = "Optional Bedrock knowledge base ID exposed to task containers."
+  type        = string
+  default     = null
+}
+
+variable "bedrock_generation_model_id" {
+  description = "Optional Bedrock foundation model ID exposed to task containers."
+  type        = string
+  default     = null
+}
+
+variable "bedrock_region" {
+  description = "Optional AWS region for Bedrock requests made by task containers."
+  type        = string
+  default     = null
+}
+
 variable "ngc_api_key" {
   description = "NGC API Key."
   type        = string
